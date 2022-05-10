@@ -28,6 +28,8 @@ return function (App $app) {
         $group->get('/{codfunc}', [UsuariosController::class, 'getUsuario']);
 
         $group->post('/cadastrar', [UsuariosController::class, 'postNovoUsuario']);
+        $group->post('/login', [UsuariosController::class, 'login']);
+
 
 
 

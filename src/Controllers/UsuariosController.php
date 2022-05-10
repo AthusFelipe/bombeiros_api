@@ -8,6 +8,7 @@ use App\DAO\UsuariosDAO;
 use App\Models\Usuarios;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use App\Models\JWT;
 
 
 class UsuariosController
@@ -74,6 +75,19 @@ class UsuariosController
         UsuariosDAO::removerUsuario($codfunc);
 
         $response->getBody()->write(json_encode(['msg' => 'success']));
+        return $response;
+    }
+
+
+    public function login(Request $request, Response $response, $args)
+    {
+        $dados = $request->getParsedBody();
+        $usuario = $dados['usuario'];
+        $senha = $dados['senha'];
+
+        $jwt = new JWT($usuario, $senha);
+
+        $response->getBody()->write(json_encode($jwt));
         return $response;
     }
 }

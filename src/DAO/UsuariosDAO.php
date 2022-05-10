@@ -54,4 +54,23 @@ class UsuariosDAO
         $s = new UsuariosDAO;
         $s->conn->prepare('DELETE FROM usuarios WHERE codfunc = ?')->execute([$id]);
     }
+
+    public function loginUser($nomeusuario, $senhausuario)
+    {
+        $resultado = $this->conn->query("SELECT codfunc, nomeguerra, cargo FROM usuarios WHERE nomeusuario = '$nomeusuario' AND senhausuario = '$senhausuario'")->fetch(Conexao::FETCH_ASSOC);
+
+
+
+
+        if ($resultado == null) {
+            $resultado = [
+                'codfunc' => 0,
+                'nomeguerra' => 'false',
+                'cargo' => 'false'
+            ];
+        }
+
+
+        return $resultado;
+    }
 }
